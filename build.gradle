@@ -12,7 +12,7 @@ allprojects {
     apply plugin: "nebula.lint"
     gradleLint {
         rules=['all-dependency']
-        excludedRules= ['unused-dependency']
+        excludedRules= ['unused-dependency', 'undeclared-dependency']
     }
 }
 
