@@ -1,4 +1,6 @@
 package com.applydigital.application.usecases.news;
 
-public class IDeleteService {
+public interface IDeleteNewsService {
+
+    public void deleteNewsById(String objectId);
 }

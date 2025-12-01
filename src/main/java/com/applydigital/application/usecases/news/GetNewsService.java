@@ -1,6 +1,7 @@
 package com.applydigital.application.usecases.news;
 
 
+import com.applydigital.application.exception.NewsNotFoundException;
 import com.applydigital.application.model.NewsGetResponseDTO;
 import com.applydigital.application.repository.NewsRepository;
 import com.applydigital.domain.model.NewsEntity;
@@ -16,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class NewsService implements INewsService{
+public class GetNewsService implements IGetNewsService {
 
     @Autowired
     private NewsRepository newsRepository;
@@ -46,7 +47,7 @@ public class NewsService implements INewsService{
                 );
 
 
-        List<NewsGetResponseDTO> response = mongoTemplate.find(query, NewsEntity.class).stream()
+        List<NewsGetResponseDTO> response = Optional.ofNullable(mongoTemplate.find(query, NewsEntity.class)).orElseThrow(() -> new NewsNotFoundException("Object id not found!")).stream()
                 .map(field -> new NewsGetResponseDTO(
                         field.getAuthor(),
                         field.getCommentText(),
@@ -57,7 +58,10 @@ public class NewsService implements INewsService{
                         field.getObjectId()
                 ))
                 .collect(Collectors.toList());
-        return response;
+
+        return Optional.ofNullable(response)
+                .orElseThrow(() -> new NewsNotFoundException("Object id not found!"));
+
     }
 
 
@@ -65,7 +69,8 @@ public class NewsService implements INewsService{
 
     @Override
     public NewsGetResponseDTO getNewsByObjectId(String objectID) {
-        NewsEntity news = newsRepository.findByObjectId(objectID);
+        NewsEntity news = Optional.ofNullable(newsRepository.findByObjectId(objectID))
+                .orElseThrow(() -> new NewsNotFoundException("Object id not found!"));
         return  new NewsGetResponseDTO(
                 news.getAuthor(),
                 news.getCommentText(),
@@ -76,9 +81,5 @@ public class NewsService implements INewsService{
                 news.getObjectId());
     }
 
-    @Override
-    public void deleteNewsById(String objectId) {
-        NewsEntity record =  newsRepository.findByObjectId(objectId);
-        newsRepository.delete(record);
-    }
+
 }
