@@ -8,6 +8,8 @@ import java.util.List;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class NewsDTO {
     private String author;
     private String commentText;
