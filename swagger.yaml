@@ -63,7 +63,7 @@ paths:
       parameters:
         - name: object_id
           in: path
-          required: true
+          required: false
           schema:
             type: string
       responses:
@@ -86,7 +86,7 @@ paths:
       parameters:
         - name: object_id
           in: path
-          required: true
+          required: false
           schema:
             type: string
       responses:

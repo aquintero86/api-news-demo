@@ -1,7 +1,10 @@
 package com.applydigital.domain.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +13,11 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewsDTO {
+@Entity
+@Document(collection = "myCollection")
+public class NewsEntity {
+
+    private String objectId;
     private String author;
     private String commentText;
     private String storyTitle;
@@ -18,7 +25,6 @@ public class NewsDTO {
     private List<String> tags;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String objectId;
     private Long parentId;
     private Long storyId;
 

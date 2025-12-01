@@ -1,6 +1,7 @@
-package application.usercases;
+package application.usercases.news;
 
 
+import application.usercases.NewsTestData;
 import com.applydigital.application.exception.NewsNotFoundException;
 import com.applydigital.application.repository.DeletedNewsRepository;
 import com.applydigital.application.repository.NewsRepository;
@@ -11,13 +12,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
