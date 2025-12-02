@@ -38,9 +38,7 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build
-    #run tests  
-    - name: Build and run tests
-      run: ./gradlew clean test --info
+
 
   dependency-submission:
 
