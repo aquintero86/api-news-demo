@@ -5,6 +5,7 @@ import com.applydigital.application.exception.NewsNotFoundException;
 import com.applydigital.application.model.NewsGetResponseDTO;
 import com.applydigital.application.repository.NewsRepository;
 import com.applydigital.domain.model.NewsEntity;
+import com.applydigital.domain.security.TokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -23,6 +24,9 @@ public class GetNewsService implements IGetNewsService {
     private NewsRepository newsRepository;
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private TokenGenerator genarator;
 
     @Override
     public List<NewsGetResponseDTO> findNewsByComplexCriteria(String author, List<String> tags, String storyTitle, Month month) {
@@ -69,6 +73,7 @@ public class GetNewsService implements IGetNewsService {
 
     @Override
     public NewsGetResponseDTO getNewsByObjectId(String objectID) {
+        String valToken = genarator.generate("getNewsByObjectId");
         NewsEntity news = Optional.ofNullable(newsRepository.findByObjectId(objectID))
                 .orElseThrow(() -> new NewsNotFoundException("Object id not found!"));
         return  new NewsGetResponseDTO(

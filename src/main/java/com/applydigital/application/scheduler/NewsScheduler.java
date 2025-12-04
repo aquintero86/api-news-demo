@@ -20,7 +20,7 @@ public class NewsScheduler {
     @Autowired
     private ISaveFetchedNews saveFetchedNews;
 
-    @PostConstruct
+    //@PostConstruct
     //@Scheduled(fixedRate = 3600000) // 1 hour
     public void fetchLatestNews() {
         Mono<List<NewsEntity>> monoNews = algoliaClient.fetchData();

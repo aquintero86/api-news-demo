@@ -23,12 +23,10 @@ public class AlgoliaClient implements IAlgoliaClient {
 
     private final WebClient webClient;
 
-    @Value("${algolia.service.url}")
-    private String algoliaServiceUrl;
     @Value("${algolia.service.uri}")
     private String algoliaServiceUri;
 
-    public AlgoliaClient(WebClient.Builder webClientBuilder) {
+    public AlgoliaClient(@Value("${algolia.service.url}") String algoliaServiceUrl, WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(algoliaServiceUrl)
                 .build();
     }
@@ -53,7 +51,5 @@ public class AlgoliaClient implements IAlgoliaClient {
     }
 
 
-    public void testUrl(){
-        
-    }
+
 }

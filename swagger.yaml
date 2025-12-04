@@ -96,8 +96,22 @@ paths:
           description: News item not found
         '500':
           description: Server error
+  /api/status:
+    get:
+      summary: Health check
+      description: Public endpoint without required token.
+      responses:
+        "200":
+          description: Ok add request
 
 components:
+  securitySchemes:
+    ServiceTokenHeader:
+      type: apiKey
+      in: header
+      name: X-Service-Token
+      description: JWT token used for internal communication
+
   schemas:
     NewsItem:
       type: object
@@ -139,3 +153,5 @@ components:
           type: integer
           format: int64
           example: 123456789
+security:
+  - ServiceTokenHeader: []
