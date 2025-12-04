@@ -25,8 +25,6 @@ public class GetNewsService implements IGetNewsService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @Autowired
-    private TokenGenerator genarator;
 
     @Override
     public List<NewsGetResponseDTO> findNewsByComplexCriteria(String author, List<String> tags, String storyTitle, Month month) {
@@ -73,7 +71,6 @@ public class GetNewsService implements IGetNewsService {
 
     @Override
     public NewsGetResponseDTO getNewsByObjectId(String objectID) {
-        String valToken = genarator.generate("getNewsByObjectId");
         NewsEntity news = Optional.ofNullable(newsRepository.findByObjectId(objectID))
                 .orElseThrow(() -> new NewsNotFoundException("Object id not found!"));
         return  new NewsGetResponseDTO(
